@@ -32,9 +32,13 @@ Create a file groupXX_imageids.csv where you keep track of which annotator (by t
 You must hand in your group Github repository which contains:
 
 * groupXX_summary.md with your findings about the data. Every group member must have made non-trivial commits to this file
-* groupXX_annotation_comments.md with your findings about the annotation process (This is optional)
+* groupXX_annotation_comments.md with your findings about the annotation process 
 * groupXX_imageids.csv with two columns: annotator ID, and filename of an annotation
 * groupXX_masks/ directory, where all the annotations are stored. The annotations must be committed by the group members who made them
+
+The hand-in is that you post the link to your repository on LearnIT.
+
+The repository commits must show who has contributed to which file and when (that is, you shouldn't create a "clean" repository for the hand-in). 
 
 
 
