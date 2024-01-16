@@ -17,9 +17,10 @@ Write a summary about your findings in a single groupXX_summary.md file:
 
 ## Task 2: Segment a set of images by hand
 
-You will receive an "annotator ID", and list of images to segment. You may discuss the segmentation process with group members before your start. Create a file groupXX_annotation.md, and add any notes there about how your decisions (this is optional). Do not add your names or other details in this file, but use your annotator ID.
+You will receive an "annotator ID", and list of images to segment. You may discuss the segmentation process with group members before your start. Create a file groupXX_annotation_comments.md, and add any notes there about your decisions, anything you find surprising and so on (this is optional). Do not add your names or other details in this file, but use your annotator ID.
 
-Each student must segment their own images. Create segmentations of these by hand. You can use LabelStudio, or another program. 
+Each student must segment their own images. Create segmentations of these **by hand** with LabelStudio. You are allowed to use another program, but your annotation must follow the same format and be compatible with LabelStudio. 
+
 Place all your annotations into a separate groupXX_masks directory. The filenames must have the same format.
 
 Create a file groupXX_imageids.csv where you keep track of which annotator (by their annotator ID) annotated the image, and that image's filename. 
@@ -28,10 +29,10 @@ Create a file groupXX_imageids.csv where you keep track of which annotator (by t
 
 ## Hand-in mandatory assignment
 
-You must hand in your Github repository which contains:
+You must hand in your group Github repository which contains:
 
 * groupXX_summary.md with your findings about the data. Every group member must have made non-trivial commits to this file
-* groupXX_annotation.md with your findings about the annotation process (This is optional)
+* groupXX_annotation_comments.md with your findings about the annotation process (This is optional)
 * groupXX_imageids.csv with two columns: annotator ID, and filename of an annotation
 * groupXX_masks/ directory, where all the annotations are stored. The annotations must be committed by the group members who made them
 
