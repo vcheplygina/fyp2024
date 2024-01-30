@@ -17,9 +17,11 @@ Write a summary about your findings in a single groupXX_summary.md file:
 
 ## Task 2: Segment a set of images by hand
 
-You will receive an "annotator ID", and list of images to segment. You may discuss the segmentation process with group members before your start. Create a file groupXX_annotation_comments.md, and add any notes there about your decisions, anything you find surprising and so on (this is optional). Do not add your names or other details in this file, but use your annotator ID.
+You will receive a list of images to segment as a group. You may discuss the segmentation process with group members before your start. Assign each group member an annotator ID, like a1-a5 if you are group A and you have 5 members. 
 
-Each student must segment their own images. Create segmentations of these **by hand** with LabelStudio. You are allowed to use another program, but your annotation must follow the same format and be compatible with LabelStudio. 
+Create a file groupXX_annotation_comments.md, and add any notes there about your decisions, anything you find surprising and so on (this is optional). Do not add your names or other details in this file, but use your annotator ID.
+
+All students must contribute to segmenting images. Create segmentations of these **by hand** with LabelStudio. You are allowed to use another program, but your annotation must follow the same format and be compatible with LabelStudio. 
 
 Place all your annotations into a separate groupXX_masks directory. The filenames must have the same format.
 
