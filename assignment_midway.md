@@ -23,6 +23,8 @@ Create a file groupXX_annotation_comments.md, and add any notes there about your
 
 All students must contribute to segmenting images. Create segmentations of these **by hand** with LabelStudio. You are allowed to use another program, but your annotation must follow the same format and be compatible with LabelStudio. 
 
+If an image is too low quality, you can skip it, but try to have at least 100 annotated images in total. 
+
 Place all your annotations into a separate groupXX_masks directory. The filenames must have the same format.
 
 Create a file groupXX_imageids.csv where you keep track of which annotator (by their annotator ID) annotated the image, and that image's filename. 
