@@ -22,6 +22,7 @@ You will receive a list of images to segment as a group. You may discuss the seg
 Create a file groupXX_annotation_comments.md, and add any notes there about your decisions, anything you find surprising and so on (this is optional). Do not add your names or other details in this file, but use your annotator ID.
 
 All students must contribute to segmenting images. Create segmentations of these **by hand** with LabelStudio. You are allowed to use another program, but your annotation must follow the same format and be compatible with LabelStudio. 
+You will use these segmentations later on in the assignment.
 
 If an image is too low quality, you can skip it, but try to have at least 100 annotated images in total. 
 
