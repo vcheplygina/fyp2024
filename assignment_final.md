@@ -25,7 +25,7 @@ Create implementations for your visual features using related work in image anal
 
 To test your implementations, you might want to create ``toy'' images where you already know the results, for example a circle should be less asymmetric than an ellipse, etc. 
 
-Once you are satisfied with your implementations, run them on the real images and save the features in a CSV file. 
+Once you are satisfied with your implementations, run them on the real images and save the features in a CSV file. You will need to use the segmentations you previously made for some of the feature extraction.
 
 Compare the features to your manual measurements by calculating agreement and/or visualizing the measurements. Do you agree with your algorithm? Do you see any other patterns?
 
