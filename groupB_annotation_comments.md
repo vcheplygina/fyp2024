@@ -1,5 +1,5 @@
 # Annorator B1
-
+Most of my images were straightforward to annotate, but some proved challenging. Certain areas on the skin closely resembled cancerous lesions and appeared frequently. Distinguishing between actual cancer and mere skin pigmentation proved to be a bit challenging in some of the pictures.
 # Annorator B2
 
 What I found surprising was how different skin diseases and skin cancers can look. I always imagined an ugly, assymetrical, big mole or an ugly rash. However, some of the pictures looked pretty normal, and I would probably not think it was something weird.
