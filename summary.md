@@ -43,7 +43,7 @@ This cancer typically presents as a change in an existing mole or the appearance
 ## Skin diseases
 
 ### Seborrheic Keratosis (SEK)
-
+Primarily caused by cumulative sun exposure, leading to damage in the outermost layer of the skin. AK lesions are often red or brown, with a rough, dry, or scaly texture. They may be flat or slightly raised. Various treatment options exist, including topical creams, cryotherapy (freezing), laser therapy, or surgical removal. The choice of treatment depends on the extent and characteristics of the lesions. Sun protection measures, such as using sunscreen, wearing protective clothing, and avoiding excessive sun exposure, are essential to prevent the development of Actinic Keratosis and reduce the risk of skin cancer.
 ### Actinic Keratosis (ACK)
 
 ### Nevus (NEV)
