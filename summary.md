@@ -40,8 +40,6 @@ This cancer typically presents as a change in an existing mole or the appearance
 
 ### Squamous Cell Carcinoma (SCC)
 
-### How they relate to each other
-
 ## Skin diseases
 
 ### Seborrheic Keratosis (SEK)
@@ -49,8 +47,6 @@ This cancer typically presents as a change in an existing mole or the appearance
 ### Actinic Keratosis (ACK)
 
 ### Nevus (NEV)
-
-### How they relate to each other
 
 # Appendix
 ## References
