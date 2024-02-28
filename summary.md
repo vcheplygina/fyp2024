@@ -43,8 +43,9 @@ This cancer typically presents as a change in an existing mole or the appearance
 ## Skin diseases
 
 ### Seborrheic Keratosis (SEK)
-Primarily caused by cumulative sun exposure, leading to damage in the outermost layer of the skin. AK lesions are often red or brown, with a rough, dry, or scaly texture. They may be flat or slightly raised. Various treatment options exist, including topical creams, cryotherapy (freezing), laser therapy, or surgical removal. The choice of treatment depends on the extent and characteristics of the lesions. Sun protection measures, such as using sunscreen, wearing protective clothing, and avoiding excessive sun exposure, are essential to prevent the development of Actinic Keratosis and reduce the risk of skin cancer.
+
 ### Actinic Keratosis (ACK)
+Primarily caused by cumulative sun exposure, leading to damage in the outermost layer of the skin. AK lesions are often red or brown, with a rough, dry, or scaly texture. They may be flat or slightly raised. Various treatment options exist, including topical creams, cryotherapy (freezing), laser therapy, or surgical removal. The choice of treatment depends on the extent and characteristics of the lesions. Sun protection measures, such as using sunscreen, wearing protective clothing, and avoiding excessive sun exposure, are essential to prevent the development of ACK and reduce the risk of skin cancer.
 
 ### Nevus (NEV)
 A nevus, more commonly known as a mole, is a benign (non-cancerous) cluster of pigmented cells that often appears as a small, dark brown spot on the skin.  Nevi are incredibly common, and most adults have a few of them. While generally harmless, it's important to be aware of changes in existing moles or the appearance of new ones. Some atypical nevi, known as dysplastic nevi, can have a higher risk of developing into melanoma, a type of skin cancer.
