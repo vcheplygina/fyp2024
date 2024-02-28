@@ -34,6 +34,9 @@ The biggest risk factor associated with BCC is UV light exposure. This makes lig
 The biggest risk factor associated with BCC is UV light exposure. This makes lighter skin phenotypes more susceptible to developing this type of cancer. \cite{BCC_1} It can arise anywhere on the body, including on scarred or burn wounds. \cite{BCC_3} BCC often has no symptoms and is characterized by its slow growth and the fact that it rarely metastasizes. It can look like a pearly lump that is shiny and pale or bright pink, which can easily go unnoticed or be mistaken for a rash or non-cancerous skin disease.
 
 ### Melanoma (MEL)
+Melanoma is the most dangerous type of skin cancer. It metastasizes rapidly throughout the body, and if not treated at an early stage, it is likely to be fatal. Only 14\% of patients with metastatic melanoma survive for five years. \cite{MEL_1}
+
+This cancer typically presents as a change in an existing mole or the appearance of a new spot. These changes can include variations in color, shape, size, elevation, and the presence of itching or bleeding. \cite{MEL_3} The most significant risk factor for developing melanoma is UV exposure, especially from sunburn, along with a family history of melanoma. The most effective prevention against melanoma is doing regular skin checks and minimize UV exposure by using sunscreen daily. Early detection of MEL is crucial as it significantly enhances the chances of successful treatment and survival.
 
 ### Squamous Cell Carcinoma (SCC)
 
