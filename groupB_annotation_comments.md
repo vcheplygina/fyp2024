@@ -13,3 +13,6 @@ A few times I got a skin lesion that had many details - this was a bit hard to s
 # Annorator B4
 
 # Annorator B5
+I found confusing some of the images that had leisure on more than one place. I was not sure if I should segment all of them or just one. 
+
+I ended up segmenting all of them, but I am not sure if that was the right thing to do.
