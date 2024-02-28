@@ -50,14 +50,6 @@ Primarily caused by cumulative sun exposure, leading to damage in the outermost 
 ### Nevus (NEV)
 A nevus, more commonly known as a mole, is a benign (non-cancerous) cluster of pigmented cells that often appears as a small, dark brown spot on the skin.  Nevi are incredibly common, and most adults have a few of them. While generally harmless, it's important to be aware of changes in existing moles or the appearance of new ones. Some atypical nevi, known as dysplastic nevi, can have a higher risk of developing into melanoma, a type of skin cancer.
 
-#### Key points about nevi:
-
- - Appearance: Nevi are usually round or oval-shaped, with a defined border.
- - Size: Most are smaller than a pencil eraser.
- - Changes: Monitor your moles for changes in size, shape, color, or if they begin bleeding or itching.
- - Medical attention: Consult a dermatologist if you notice any concerning changes to your moles or develop new, unusual-looking ones.
-
-
 # Appendix
 ## References
 
