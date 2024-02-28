@@ -36,7 +36,7 @@ The biggest risk factor associated with BCC is UV light exposure. This makes lig
 ### Melanoma (MEL)
 Melanoma is the most dangerous type of skin cancer. It metastasizes rapidly throughout the body, and if not treated at an early stage, it is likely to be fatal. Only 14\% of patients with metastatic melanoma survive for five years. \cite{MEL_1}
 
-This cancer typically presents as a change in an existing mole or the appearance of a new spot. These changes can include variations in color, shape, size, elevation, and the presence of itching or bleeding. \cite{MEL_3} The most significant risk factor for developing melanoma is UV exposure, especially from sunburn, along with a family history of melanoma. The most effective prevention against melanoma is doing regular skin checks and minimize UV exposure by using sunscreen daily. Early detection of MEL is crucial as it significantly enhances the chances of successful treatment and survival.
+This cancer typically presents as a change in an existing mole or the appearance of a new spot. These changes can include variations in color, shape, size, elevation, and the presence of itching or bleeding. \cite{BCC_3} The most significant risk factor for developing melanoma is UV exposure, especially from sunburn, along with a family history of melanoma. The most effective prevention against melanoma is doing regular skin checks and minimize UV exposure by using sunscreen daily. Early detection of MEL is crucial as it significantly enhances the chances of successful treatment and survival. 
 
 ### Squamous Cell Carcinoma (SCC)
 
@@ -106,4 +106,22 @@ This cancer typically presents as a change in an existing mole or the appearance
   year = {2023},
   url = {https://www.cancer.org.au/cancer-information/types-of-cancer/non-melanoma-skin-cancer},
   note = {Accessed: 2024-02-26}
+}
+
+@article{MEL_1,
+  title={Melanoma},
+  author={Miller, Arlo J and Mihm Jr, Martin C},
+  journal={New England Journal of Medicine},
+  volume={355},
+  number={1},
+  pages={51--65},
+  year={2006},
+  publisher={Mass Medical Soc}
+}
+
+@article{SCC1,
+    title = {Squamous Cell Carcinoma},
+    Website = {Healthdirect Australia},
+    url = {https://www.healthdirect.gov.au/squamous-cell-carcinoma},
+    note = {February 28, 2024}
 }
