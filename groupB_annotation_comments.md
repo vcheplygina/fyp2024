@@ -9,6 +9,7 @@ All my images were good quality, but some of the skin lesions were hard to segme
 A few times I got a skin lesion that had many details - this was a bit hard to segment. It almost looked like blood vessels, or like the mole was just very spread.
 
 # Annorator B3
+My set of images was considerably easy to annotate except few certain ones which were too confusing to tell if the level of annotation was enough for given skin image.
 
 # Annorator B4
 
