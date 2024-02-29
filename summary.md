@@ -43,6 +43,7 @@ This cancer typically presents as a change in an existing mole or the appearance
 ## Skin diseases
 
 ### Seborrheic Keratosis (SEK)
+Seborrheic keratosis (SEK) occurs as a common non-cancerous skin growth. These skin lesions are not pre-cancerous, but they can resemble other disease-like growths that are actually predicted to be pre-cancerous. They appear as epidermal skin tumors that often become visible on the skin of adults and older people, so they are considered one of the most common types of human skin tumors. \cite{SEK_1}
 
 ### Actinic Keratosis (ACK)
 Primarily caused by cumulative sun exposure, leading to damage in the outermost layer of the skin. AK lesions are often red or brown, with a rough, dry, or scaly texture. They may be flat or slightly raised. Various treatment options exist, including topical creams, cryotherapy (freezing), laser therapy, or surgical removal. The choice of treatment depends on the extent and characteristics of the lesions. Sun protection measures, such as using sunscreen, wearing protective clothing, and avoiding excessive sun exposure, are essential to prevent the development of ACK and reduce the risk of skin cancer.
@@ -122,4 +123,12 @@ A nevus, more commonly known as a mole, is a benign (non-cancerous) cluster of p
     Website = {Healthdirect Australia},
     url = {https://www.healthdirect.gov.au/squamous-cell-carcinoma},
     note = {February 28, 2024}
+}
+
+@article{SEK_1,
+    title = {Seborrheic Keratosis}
+    Website = {Seborrheic Keratosis - StatPearls - NCBI}
+    url = {https://www.ncbi.nlm.nih.gov/books/NBK545285/}
+    note = {February 29, 2024}
+
 }
