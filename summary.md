@@ -39,6 +39,12 @@ Melanoma is the most dangerous type of skin cancer. It metastasizes rapidly thro
 This cancer typically presents as a change in an existing mole or the appearance of a new spot. These changes can include variations in color, shape, size, elevation, and the presence of itching or bleeding. \cite{MEL_2} The most significant risk factor for developing melanoma is UV exposure, especially from sunburn, along with a family history of melanoma. The most effective prevention against melanoma is doing regular skin checks and minimize UV exposure by using sunscreen daily. Early detection of MEL is crucial as it significantly enhances the chances of successful treatment and survival. 
 
 ### Squamous Cell Carcinoma (SCC)
+Squamous cell carcinoma (SCC) is one of the most common forms of skin cancer. SCC is not as dangerous as melanoma, but it can spread to other parts of your body if not treated. Every year, people in Australia die from aggressive SCCs. \cite{SCC1}    
+
+SCCs can appear as scaly red patches, open sores, rough, thickened or wart-like skin, or raised growths with a central depression. At times, SCCs may crust over, itch or bleed. The lesions most commonly arise in sun-exposed areas of the body. \cite{SCC2}    
+
+SCCs can also occur in other areas of the body, including the genitals.
+SCCs look different on everyone. For more images, visit our Skin Cancer Pictures page. To learn more about SCC signs, symptoms and early detection strategies, go to our SCC Warning Signs page.  
 
 ## Skin diseases
 
