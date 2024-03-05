@@ -1,16 +1,20 @@
 For the final assignment we are still working with (part of) PAD-UFES-20, you can download the data [here](https://data.mendeley.com/datasets/zr7vgbcyr2/1). Do not forget to cite the dataset in your report. 
 
-In this part we will be working with image features, like Asymmetry. We refer to them as "visual features" hereafter. The "visual features" may be different from group to group. 
+In this part we will be working with image features, like Asymmetry. We refer to them as "visual features" hereafter. The "visual features" each group needs to implement this year are: 
+
+* Asymmetry
+* Color variability  
+* At least one feature from: blue white veil, dots, globules, lines, network structures, regression structures, vessels. See also slides/references from class on 6 March.
+* You can add additional features in the "open question" task
 
 
 ## Task 3: Select the subset of images that you will work with
 
-(Details TBA)
-
+You will need images with masks to implement (some of) the features. You can use the images you segmented in the first part of the project, and/or collect images from other groups. You can choose to discard some images due to low quality, for example. Please document and motivate your choices in the report. 
 
 ## Task 4: Annotate image features by hand
 
-Search for related work about your group's visual features and how they are measured by dermatologists. 
+Search for related work about your visual features and how they are measured by dermatologists. 
 
 Create an annotation guide for you and your group members, where you discuss at least 5 images together, and decide how to rate their visual features. 
 
@@ -18,6 +22,7 @@ Then split the images, such that each image is annotated by at least two people 
 
 Make sure your CSV file follows the guidelines outlined in Broman & Woo paper "Data organization in spreadsheets".  
 
+You might want to work on asymmetry and color first, because they are more intuitive, than the other features. 
 
 ## Task 5: Measure the features automatically
 
@@ -25,7 +30,7 @@ Create implementations for your visual features using related work in image anal
 
 To test your implementations, you might want to create ``toy'' images where you already know the results, for example a circle should be less asymmetric than an ellipse, etc. 
 
-Once you are satisfied with your implementations, run them on the real images and save the features in a CSV file. You will need to use the segmentations you previously made for some of the feature extraction.
+Once you are satisfied with your implementations, run them on the real images and save the features in a CSV file. 
 
 Compare the features to your manual measurements by calculating agreement and/or visualizing the measurements. Do you agree with your algorithm? Do you see any other patterns?
 
@@ -45,7 +50,7 @@ The classifier should output a probability of the image being suspicious, betwee
 
 ## Task 7: Open question
 
-Use the data and your findings so far to formulate, motivate, answer, and discuss another research question of your choice. For example, you can study additional datasets, differences between groups of patients, additional types of features, etc. 
+Use the data and your findings so far to formulate, motivate, answer, and discuss another research question of your choice. For example, you can study additional datasets, differences between groups of patients, additional types of features (for examples histograms of filtered images), etc. 
 
 
 ## Hand-in
