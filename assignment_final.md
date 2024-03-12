@@ -32,7 +32,7 @@ To test your implementations, you might want to create ``toy'' images where you 
 
 Once you are satisfied with your implementations, run them on the real images and save the features in a CSV file. 
 
-Compare the features to your manual measurements by calculating agreement and/or visualizing the measurements. Do you agree with your algorithm? Do you see any other patterns?
+Compare the features to your manual measurements by calculating agreement and/or visualizing the measurements. Do you agree with your algorithm? Do you see any other patterns? You can add a section about this in your report. 
 
 
 ## Task 6: Predict the diagnosis
@@ -45,7 +45,9 @@ After this, select your best set of features + classifier. Train this classifier
 
 Then create a function that can classify an external image/mask. You can assume that the mask is provided, you do not need to apply your segmentation method. This function should measure features you used, apply any transformations etc, and finally apply your trained classifier. 
 
-The classifier should output a probability of the image being suspicious, between 0 (healthy) and 1 (not healthy). This will be evaluated on a different set of data, which is not given to you. The external data will have masks available.
+The classifier should output a probability. For example if you trained a classifier to distinguish melanoma from other classes, your classifier should output a number between 0 (not melanoma) and 1 (melanoma). 
+
+We will evaluate your classifier on a different set of data, which is not given to you. The external data will have masks available.
 
 
 ## Task 7: Open question
