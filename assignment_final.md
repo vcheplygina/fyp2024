@@ -4,7 +4,7 @@ In this part we will be working with image features, like Asymmetry. We refer to
 
 * Asymmetry
 * Color variability  
-* At least one feature from: blue white veil, dots, globules, lines, network structures, regression structures, vessels. See also slides/references from class on 6 March.
+* At least one feature from the 7-point checklist by [Argenziano et al](https://pubmed.ncbi.nlm.nih.gov/21175563/), for example blue white veil, dots, globules, lines, network structures, regression structures, vessels. See also slides/references from class on 6 March.
 * You can add additional features in the "open question" task
 
 
