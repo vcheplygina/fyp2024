@@ -1,4 +1,4 @@
-# fyp2023
+# fyp2024
 
 Use the public dataset from https://data.mendeley.com/datasets/zr7vgbcyr2/1 . The data should go in the same level, as the code of this repository, and stay in the same organisation as when you download it. 
 
@@ -7,7 +7,7 @@ Use the public dataset from https://data.mendeley.com/datasets/zr7vgbcyr2/1 . Th
 │   ├── images         <- Images
 │   └── metadata.csv   <- Labels, demographic variables etc
 │
-├── fyp2023            <- Your project repository
+├── fyp2024            <- Your project repository
 │
 ```
 
