@@ -61,8 +61,16 @@ You must hand in a report (PDF) and your Github repository.
 
 ### Report
 
-TBA: requirements for report
+* Written using LaTeX
+* Use the [ACL template][https://www.overleaf.com/latex/templates/template-for-2-columns-acl-proceedings-style/bdxxrbqzsmpv]. Another 2-column template like ACM or IEEE is possible, ask if in doubt
+* Do not edit the template layout (margins, font sizes etc)
+* You MUST have: Introduction, some sections describing related work, methods and results, Discussion, References. See the slides for more descriptions/options for different sections
+* References should be at the end. You can use any style (APA, Chicago etc) but the references should be consistent and complete
+* Follow the slides for more guidelines, and check the [Coursera course](https://www.coursera.org/learn/sciwrite)
+* There is no minimum number of pages of words, you should be concise. In the 2-column layout, I would expect you need 6-8 pages excluding references
+  
 
+  
 ### Github
 
 TBA: requirements for repository
