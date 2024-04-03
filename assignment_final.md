@@ -62,7 +62,7 @@ You must hand in a report (PDF) and your Github repository.
 ### Report
 
 * Written using LaTeX
-* Use the [ACL template][https://www.overleaf.com/latex/templates/template-for-2-columns-acl-proceedings-style/bdxxrbqzsmpv]. Another 2-column template like ACM or IEEE is possible, ask if in doubt
+* Use the [ACL template](https://www.overleaf.com/latex/templates/template-for-2-columns-acl-proceedings-style/bdxxrbqzsmpv). Another 2-column template like ACM or IEEE is possible, ask if in doubt
 * Do not edit the template layout (margins, font sizes etc)
 * You MUST have: Introduction, some sections describing related work, methods and results, Discussion, References. See the slides for more descriptions/options for different sections
 * References should be at the end. You can use any style (APA, Chicago etc) but the references should be consistent and complete
