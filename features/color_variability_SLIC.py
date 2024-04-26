@@ -5,72 +5,89 @@ from skimage.segmentation import slic, mark_boundaries
 from skimage.color import label2rgb
 from skimage.measure import regionprops
 import cv2
-# Helper function to convert RGBA to RGB
+
+
+### Checklist
+
+# Calibarate pre-defined colors
+# Do a return
+# Change comments/function's descriptions
+
+
+
 def convert_to_rgb(image):
-    return image[:, :, :3]  # Drops the alpha channel
+    '''
+    Function to convert RGBA to RGB (4channels to 3 channels)
+    '''
+    return image[:, :, :3]
+
 def preprocess_mask(mask):
     """
-    Preprocess the mask array to make it compatible with the SLIC algorithm.
+    Function to convert mask from RGB to Binary
     """
-    # Convert the mask to grayscale
-    grayscale_mask = np.mean(mask, axis=2)
+    #Convert the mask to grayscale
+    grayscale_mask = np.mean(mask, axis=2) 
     # Threshold the grayscale mask to obtain a binary mask
     binary_mask = (grayscale_mask > 0).astype(np.uint8)
     return binary_mask
 
-# Function to apply SLIC, extract features, and visualize the results
-def get_slic(image, mask):
-    # Convert image to RGB if it is not already in RGB format
-    if image.shape[-1] == 4:
-        image = convert_to_rgb(image)
-
-    mask = preprocess_mask(mask)
-    # Apply SLIC algorithm
-    segments_slic = slic(image, n_segments=5, compactness=5, sigma=1, start_label=1,mask=mask)
-
-    color_dict = {
-        'white': [(175, 172, 167), 0],
-        'light-brown': [(143, 100, 76), 0],
-        'dark-brown': [(82, 70, 67), 0],
-        'blue-grey': [(59, 63, 75), 0],
-        'red': [(146, 80, 86), 0],
-        'black': [(48, 51, 49), 0]
-    }
-    def manhatten(true_color, pixel_color):
-        return np.sum(np.abs(true_color - pixel_color))
-
-    for i in np.unique(slic):
-        if np.sum(mask[slic == i]) == 0:
-            continue
-        norm = np.mean(image[slic == i], axis=0)
-        rgb = np.array((norm * 255).astype(int))
-
-        min_dist = 1000
-        color = None
-        for key, value in color_dict.items():
-            dist = manhatten(rgb, value[0])
-            if dist < min_dist:
-                min_dist = dist
-                color = key
-
-        color_dict[color][1] += 1
-
-    return [v[1] for v in color_dict.values()]
-
-
-
-
-
 
 def get_slic_visual(image, mask):
-    # Convert image to RGB if it is not already in RGB format
+    def manhatten(true_color, pixel_color):
+        '''
+        Function to calculate distance between color in color_dict and average color from current segment.
+        Example: 'black':[(48, 51, 49),0]  vs [50,55,50], the distance is = 2+4+1= 7
+        '''
+        return np.sum(np.abs(true_color - pixel_color))
+
+    # Set threshold for manhatten function. Default 100
+    threshold_for_manhatten = 100
+
+    # Check if image is in RGBA. If true, convert it to RGB
     if image.shape[-1] == 4:
         image = convert_to_rgb(image)
 
+    # Check if mask in binary
     mask = preprocess_mask(mask)
+
     # Apply SLIC algorithm
     segments_slic = slic(image, n_segments=100, compactness=10, sigma=1, start_label=1, mask=mask)
 
+    # Dictionary with pre-defined colors + counter for each
+    color_dict = {
+            'white':[(175, 172, 167),0],
+            'light-brown':[(143, 100, 76),0],
+            'dark-brown':[(82, 70, 67),0],
+            'blue-grey':[(59, 63, 75),0],
+            'red':[(146, 80, 86),0],
+            'black':[(48, 51, 49),0] 
+    }
+
+    # Iterate through unique segments identified by the SLIC algorithm
+    for segment in np.unique(segments_slic):
+        # If segment in non mask area (pixel in mask = 0), then dont do calculations
+        if np.sum(mask[segments_slic == segment]) == 0:
+            continue
+
+        # Calculate the mean color of the current segment and convert to RGB
+        segment_pixels = image[segments_slic == segment]
+        mean_color = np.mean(segment_pixels, axis=0)
+
+
+        # Compare mean color with pre-defined colors
+        for color_name, (color_value, count) in color_dict.items():
+            #print(f"Now comparing color_value:{color_value} with mean_color{mean_color}")
+            #print(f"manhatten distance is: {manhatten(color_value, mean_color)}")
+            if manhatten(color_value, mean_color) < threshold_for_manhatten:
+                color_dict[color_name][1] += 1
+
+    # Print results
+    for color_name, (color_value, count) in color_dict.items():
+        print(f"Segments close to {color_name}: {count}")
+    
+    ### RETURN: ?
+
+    ### -----------------------------------------------------
     # Visualizing the segments
     fig, ax = plt.subplots(1, 3, figsize=(15, 5))
     ax[0].imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
@@ -88,16 +105,11 @@ def get_slic_visual(image, mask):
 
     plt.show()
 
-   
+
+img = cv2.imread('good_bad_images\ACK\good\images\PAT_26_37_865.png')
+mask = cv2.imread('good_bad_images\ACK\good\masks\PAT_26_37_865_mask.png')
 
 
-
-img = cv2.imread('good_bad_images\MEL\good\images\david\PAT_109_868_723.png')
-mask = cv2.imread('good_bad_images\MEL\good\masks\david\PAT_109_868_723_mask.png')
-
-
-
-#print(get_slic(img,mask))
 print(get_slic_visual(img,mask))
 
 
