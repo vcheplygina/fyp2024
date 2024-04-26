@@ -19,8 +19,8 @@ def detect_blue_white(image, mask):
     hsv = cv2.cvtColor(cropped_image, cv2.COLOR_BGR2HSV)
     
     # define bounds for color detection - HUE | SATURATION | VALUE (brightness)
-    lower_blue = np.array([90, 10, 10])
-    upper_blue = np.array([140, 120, 180])
+    lower_blue = np.array([90, 20, 80])
+    upper_blue = np.array([150, 150, 150])
     
     # creates a new mask where all pixels fall within the defined bounds
     detected_mask = cv2.inRange(hsv, lower_blue, upper_blue)
