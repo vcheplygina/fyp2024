@@ -43,39 +43,3 @@ def blue_white_veil(image_path, mask_path):
     result = coverage_ratio(detected_mask, mask)
     
     return result
-
-def test_images(image_path, mask_path, save_folder):
-    '''used to test images to visually assess  the correctness of our algorithm'''
-    image, mask = load_image(image_path, mask_path)
-    detected_mask = detect_blue_white(image, mask)
-    result = coverage_ratio(detected_mask, mask)
-    
-    # check if the save folder exists, if not, create it
-    if not os.path.exists(save_folder):
-        os.makedirs(save_folder)
-    
-    """display the original, mask, and detected mask images with coverage ratio and saves them in given folder"""
-    plt.figure(figsize=(12, 4))
-    plt.subplot(1, 3, 1)
-    plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
-    plt.title('Original Image')
-    plt.axis('off')
-
-    plt.subplot(1, 3, 2)
-    plt.imshow(mask, cmap='gray')
-    plt.title('Manual Mask')
-    plt.axis('off')
-
-    plt.subplot(1, 3, 3)
-    plt.imshow(cv2.cvtColor(detected_mask, cv2.COLOR_GRAY2RGB))
-    plt.title(f'Detected Mask')
-    plt.axis('off')
-
-    plt.suptitle(f'Coverage Ratio: {result:.2%}')
-    plt.show()
-    
-    # save the figure to the designated save folder
-    save_path = os.path.join(save_folder, f"result_{os.path.basename(image_path)}.png")
-    plt.savefig(save_path)
-    plt.close()
-    
