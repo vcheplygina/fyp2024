@@ -57,9 +57,48 @@ def get_slic(image, mask):
 
     return [v[1] for v in color_dict.values()]
 
+
+
+
+
+
+def get_slic_visual(image, mask):
+    # Convert image to RGB if it is not already in RGB format
+    if image.shape[-1] == 4:
+        image = convert_to_rgb(image)
+
+    mask = preprocess_mask(mask)
+    # Apply SLIC algorithm
+    segments_slic = slic(image, n_segments=100, compactness=10, sigma=1, start_label=1, mask=mask)
+
+    # Visualizing the segments
+    fig, ax = plt.subplots(1, 3, figsize=(15, 5))
+    ax[0].imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+    ax[0].set_title('Original Image')
+    ax[0].axis('off')
+
+    ax[1].imshow(mask, cmap='gray')
+    ax[1].set_title('Mask')
+    ax[1].axis('off')
+
+    marked_image = mark_boundaries(cv2.cvtColor(image, cv2.COLOR_BGR2RGB), segments_slic)
+    ax[2].imshow(marked_image)
+    ax[2].set_title('Segmented Image')
+    ax[2].axis('off')
+
+    plt.show()
+
+   
+
+
+
 img = cv2.imread('good_bad_images\MEL\good\images\david\PAT_109_868_723.png')
 mask = cv2.imread('good_bad_images\MEL\good\masks\david\PAT_109_868_723_mask.png')
-print(get_slic(img,mask))
+
+
+
+#print(get_slic(img,mask))
+print(get_slic_visual(img,mask))
 
 
 
