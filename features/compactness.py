@@ -1,9 +1,9 @@
 import cv2
 import numpy as np
 
-def compactness(mask):
+def compactness(mask_path):
     '''assesses the compactness of the lesion - irregularity of edges'''
-    contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours, _ = cv2.findContours(mask_path, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     largest_contour = max(contours, key=cv2.contourArea)
     
     area = cv2.contourArea(largest_contour)

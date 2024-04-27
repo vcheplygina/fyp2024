@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-def detect_atypical_network(image_path, mask_path):
+def atypical_network(image_path, mask_path):
     '''detect atypical network'''
     # load the lesion image
     image = cv2.imread(image_path)
