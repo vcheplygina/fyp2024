@@ -111,6 +111,5 @@ def get_slic_visual(image, mask):
 
 
 
-
-
+get_slic_visual()
     
