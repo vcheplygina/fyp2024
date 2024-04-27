@@ -1,10 +1,17 @@
+#Info
+
+# To change segments, do it in line 41. 
+# Dont forget to change folder and filename of png outcomes in line 70
+
 import os
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 from skimage.segmentation import slic
+from skimage.segmentation import mark_boundaries
 from skimage.color import rgba2rgb
 from collections import Counter
+
 
 def convert_to_rgb(image):
     '''
@@ -33,7 +40,7 @@ def get_colors(images, masks, group_name):
 
         # Perform SLIC ags. that will divide lession (based on mask) into n_segments based on neighbors colors
         segments_slic = slic(image, n_segments=100, compactness=10, sigma=1, start_label=1, mask=mask)
-
+        
         # Iterate through each segment and save pixel colors
         all_colors = []
         for segment_label in np.unique(segments_slic):
@@ -43,22 +50,28 @@ def get_colors(images, masks, group_name):
 
     # Count all colors and select top 10
     color_counts = Counter(all_colors)
-    most_common_colors = color_counts.most_common(10)  
+    most_common_colors = color_counts.most_common(10)
 
-    # Plot 10 top colors and save fig as png
+    # Calculate the total number of colors
+    total_color_count = sum(color_counts.values())
+
+    # Calculate relative frequency (to sum to 1)
+    most_common_colors_relative = [(color, count / total_color_count) for color, count in most_common_colors]
+
+    # Plot and saving plot as png
     plt.figure(figsize=(10, 5))
-    plt.bar(range(len(most_common_colors)), [count for _, count in most_common_colors],
-            color=[f'#{int(color[0]):02x}{int(color[1]):02x}{int(color[2]):02x}' for color, _ in most_common_colors])
-    plt.xticks(range(len(most_common_colors)), [f'({color[0]}, {color[1]}, {color[2]})' for color, _ in most_common_colors], rotation=45)
+    plt.bar(range(len(most_common_colors_relative)), [count for _, count in most_common_colors_relative],
+        color=[f'#{int(color[0]):02x}{int(color[1]):02x}{int(color[2]):02x}' for color, _ in most_common_colors_relative])
+    plt.xticks(range(len(most_common_colors_relative)), [f'({color[0]}, {color[1]}, {color[2]})' for color, _ in most_common_colors_relative], rotation=45)
     plt.xlabel('Colors')
-    plt.ylabel('Frequency')
+    plt.ylabel('Relative Frequency')
     plt.title(f'Top 10 most common colors in {group_name}')
-    plt.subplots_adjust(bottom=0.2)  # Adjust bottom margin
-    plt.savefig(f'features\\get_top_colors\\{group_name}.png', dpi=300, bbox_inches='tight')
+    plt.subplots_adjust(bottom=0.2)  
+    plt.savefig(f'features\\get_top_colors\\100segments\\{group_name}_top10_100segments.png', dpi=300, bbox_inches='tight')
 
     # Optional show each plot
     #plt.show()
-
+    
 
 # Define paths to images and masks
 # This is due debugging issues and clearness
@@ -151,7 +164,7 @@ for i in range(0,len(paths_list),2):
         print(f"Working on: {group_name}")
 
         get_colors(images,masks,group_name)
-        
+
         print('Figure saved')
     except Exception as e:
         print(f"Error processing images: {e}")
