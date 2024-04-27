@@ -1,14 +1,3 @@
-
-
-
-
-
-
-### Checklist
-# SCC: Viacej masiek vo folderi ako obrazkov --> Fix 
-
-
-
 import os
 import cv2
 import numpy as np
@@ -18,29 +7,45 @@ from skimage.color import rgba2rgb
 from collections import Counter
 
 def convert_to_rgb(image):
+    '''
+    Convert from RGBA to RGB
+    '''
     return rgba2rgb(image) if image.shape[-1] == 4 else image
 
 def preprocess_mask(mask):
+    '''
+    Convert to binary image
+    '''
     return mask > 0 if mask.ndim > 2 else mask
 
-def get_slic_visual2(images, masks, group_name):
-    all_colors = []
+def get_colors(images, masks, group_name):
+    '''
+    Input: list of images,masks and group name
+    Output: No output but creating PNGs with histograms
+    '''
+    # Unzip list of images and masks
     for image, mask in zip(images, masks):
+        # If image in RGBA (4dimenstions), use function convert_to_rgb
         if image.shape[-1] == 4:
             image = convert_to_rgb(image)
+        # Convert mask using function
         mask = preprocess_mask(mask)
 
+        # Perform SLIC ags. that will divide lession (based on mask) into n_segments based on neighbors colors
         segments_slic = slic(image, n_segments=100, compactness=10, sigma=1, start_label=1, mask=mask)
 
+        # Iterate through each segment and save pixel colors
+        all_colors = []
         for segment_label in np.unique(segments_slic):
             segment_mask = segments_slic == segment_label
             segment_color = np.mean(image[segment_mask], axis=0)
             all_colors.append(tuple(segment_color.astype(int)))
 
+    # Count all colors and select top 10
     color_counts = Counter(all_colors)
-    most_common_colors = color_counts.most_common(10)  # Top 10 most common colors
+    most_common_colors = color_counts.most_common(10)  
 
-    # Plot
+    # Plot 10 top colors and save fig as png
     plt.figure(figsize=(10, 5))
     plt.bar(range(len(most_common_colors)), [count for _, count in most_common_colors],
             color=[f'#{int(color[0]):02x}{int(color[1]):02x}{int(color[2]):02x}' for color, _ in most_common_colors])
@@ -51,11 +56,12 @@ def get_slic_visual2(images, masks, group_name):
     plt.subplots_adjust(bottom=0.2)  # Adjust bottom margin
     plt.savefig(f'features\\get_top_colors\\{group_name}.png', dpi=300, bbox_inches='tight')
 
-    plt.show()
+    # Optional show each plot
+    #plt.show()
 
 
-
-
+# Define paths to images and masks
+# This is due debugging issues and clearness
 ACK_good_imgs_path = 'good_bad_images\\ACK\\good\\images'
 ACK_good_masks_path = 'good_bad_images\\ACK\\good\\masks'
 ACK_bad_imgs_path = 'good_bad_images\\ACK\\bad\\images'
@@ -76,19 +82,21 @@ NEV_good_masks_path = 'good_bad_images\\NEV\\good\\masks'
 NEV_bad_imgs_path = 'good_bad_images\\NEV\\bad\\images'
 NEV_bad_masks_path = 'good_bad_images\\NEV\\bad\\masks'
 
-#SCC_good_imgs_path = 'good_bad_images\\SCC\\good\\images\\matus'
-#SCC_good_masks_path = 'good_bad_images\\SCC\\good\\masks\\matus'
-#SCC_bad_imgs_path = 'good_bad_images\\SCC\\bad\\images\\matus'
-#SCC_bad_masks_path = 'good_bad_images\\SCC\\bad\\masks\\matus'
+SCC_good_imgs_path = 'good_bad_images\\SCC\\good\\images\\matus'
+SCC_good_masks_path = 'good_bad_images\\SCC\\good\\masks\\matus'
+SCC_bad_imgs_path = 'good_bad_images\\SCC\\bad\\images\\matus'
+SCC_bad_masks_path = 'good_bad_images\\SCC\\bad\\masks\\matus'
 
 SEK_good_imgs_path = 'good_bad_images\\SEK\\good\\images'
 SEK_good_masks_path = 'good_bad_images\\SEK\\good\\masks'
 SEK_bad_imgs_path = 'good_bad_images\\SEK\\bad\\images'
 SEK_bad_masks_path = 'good_bad_images\\SEK\\bad\\masks'
 
+# Lists, where paths will be appended
 paths_list =[]
 masks_list=[]
 
+# Append each path
 paths_list.append(ACK_good_imgs_path)
 paths_list.append(ACK_bad_imgs_path)
 paths_list.append(BCC_good_imgs_path)
@@ -97,8 +105,8 @@ paths_list.append(MEL_good_imgs_path)
 paths_list.append(MEL_bad_imgs_path)
 paths_list.append(NEV_good_imgs_path)
 paths_list.append(NEV_bad_imgs_path)
-#paths_list.append(SCC_good_imgs_path)
-#paths_list.append(SCC_bad_imgs_path)
+paths_list.append(SCC_good_imgs_path)
+paths_list.append(SCC_bad_imgs_path)
 paths_list.append(SEK_good_imgs_path)
 paths_list.append(SEK_bad_imgs_path)
 
@@ -110,38 +118,42 @@ masks_list.append(MEL_good_masks_path)
 masks_list.append(MEL_bad_masks_path)
 masks_list.append(NEV_good_masks_path)
 masks_list.append(NEV_bad_masks_path)
-#masks_list.append(SCC_good_masks_path)
-#masks_list.append(SCC_bad_masks_path)
+masks_list.append(SCC_good_masks_path)
+masks_list.append(SCC_bad_masks_path)
 masks_list.append(SEK_good_masks_path)
 masks_list.append(SEK_bad_masks_path)
 
 
-#paths_list = ['good_bad_images\\ACK\\good\\images','good_bad_images\\ACK\\bad\\images']
-#masks_list = ['good_bad_images\\ACK\\good\\masks','good_bad_images\\ACK\\bad\\masks']
+# Iterate through paths, but with step 2
+# I want to merge current(good) and next(bad) groups, due to our image separation in different groups
+for i in range(0,len(paths_list),2):
 
-print(masks_list)
-
-
-for i in range(len(paths_list)):
-
+    #Get group name, based on filename
     parts = paths_list[i].split('\\')  
-    group_name = parts[1] + '_' + parts[2]  # Concatenate 'ACK' and 'good' with an underscore
+    group_name = parts[1]  
+
 
     # Get image and mask paths
-    path_imgs = [os.path.join(paths_list[i], filename) for filename in os.listdir(paths_list[i])]
-    path_masks = [os.path.join(masks_list[i], os.path.splitext(filename)[0] + '_mask.png') for filename in os.listdir(paths_list[i])]
+    path_imgs_good = [os.path.join(paths_list[i], filename) for filename in os.listdir(paths_list[i])]
+    path_masks_good = [os.path.join(masks_list[i], os.path.splitext(filename)[0] + '_mask.png') for filename in os.listdir(paths_list[i])]
+    path_imgs_bad = [os.path.join(paths_list[i+1], filename) for filename in os.listdir(paths_list[i+1])]
+    path_masks_bad = [os.path.join(masks_list[i+1], os.path.splitext(filename)[0] + '_mask.png') for filename in os.listdir(paths_list[i+1])]
 
-
+    # Join good and bad images paths
+    path_imgs_combined = path_imgs_good + path_imgs_bad
+    path_masks_combined = path_masks_good + path_masks_bad
 
     # Load images and masks
-    images = [cv2.cvtColor(cv2.imread(img_path), cv2.COLOR_BGR2RGB) for img_path in path_imgs]
-    masks = [cv2.imread(mask_path, 0) for mask_path in path_masks]  # Assuming masks are grayscale
+    images = [cv2.cvtColor(cv2.imread(img_path), cv2.COLOR_BGR2RGB) for img_path in path_imgs_combined]
+    masks = [cv2.imread(mask_path, 0) for mask_path in path_masks_combined]  
 
-    
-
-   
-# Process images and masks
     try:
-        get_slic_visual2(images, masks, group_name)
+        print(f"Working on: {group_name}")
+
+        get_colors(images,masks,group_name)
+        
+        print('Figure saved')
     except Exception as e:
         print(f"Error processing images: {e}")
+
+print("Done")
