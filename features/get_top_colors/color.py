@@ -42,13 +42,16 @@ def get_colors(images, masks, group_name):
         # Perform SLIC ags. that will divide lession (based on mask) into n_segments based on neighbors colors
         segments_slic = slic(image, n_segments=100, compactness=10, sigma=1, start_label=1, mask=mask)
         
+
+        # Optional saving slic figs
+        '''
         fig, ax = plt.subplots(1, figsize=(10, 6))
         ax.imshow(mark_boundaries(image, segments_slic))
         ax.set_axis_off()
         plt.tight_layout()
         plt.savefig(f'features\\get_top_colors\\100segments\\slic\\{group_name}_{slic_filename_counter}.png', dpi=300, bbox_inches='tight')
         slic_filename_counter += 1
-
+        '''
 
         # Iterate through each segment and save pixel colors
         all_colors = []
