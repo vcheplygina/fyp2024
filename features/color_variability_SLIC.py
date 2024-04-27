@@ -89,7 +89,6 @@ def get_slic_visual(image, mask):
 
     ### -----------------------------------------------------
     # Visualizing the segments
-    '''
     fig, ax = plt.subplots(1, 3, figsize=(15, 5))
     ax[0].imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
     ax[0].set_title('Original Image')
@@ -105,12 +104,15 @@ def get_slic_visual(image, mask):
     ax[2].axis('off')
 
     plt.show()
-    '''
+
+
+img = cv2.imread('good_bad_images\ACK\good\images\PAT_26_37_865.png')
+mask = cv2.imread('good_bad_images\ACK\good\masks\PAT_26_37_865_mask.png')
+
+
+print(get_slic_visual(img,mask))
 
 
 
 
 
-
-
-    
