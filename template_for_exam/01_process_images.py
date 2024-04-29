@@ -42,7 +42,7 @@ num_images = len(image_id)
 
 
 #Make array to store features
-feature_names = ['red','green','blue']
+feature_names = ['asymmetry','color variability','blue white veil', 'compactness', 'atypical network']
 num_features = len(feature_names)
 features = np.zeros([num_images,num_features], dtype=np.float16)  
 
