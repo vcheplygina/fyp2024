@@ -7,8 +7,10 @@ from skimage.measure import regionprops
 import cv2
 
 # CHECKLIST
-# Test for different images + different number of top colors
+# Re-calibrate colors: Waiting for David to re-do masks
 
+Cancer_groups = ['BCC', 'SCC', 'MEL']
+NonCancer_groups = ['SEK', 'ACK', 'NEV']
 
 def convert_to_rgb(image):
     '''
@@ -123,9 +125,15 @@ def get_slic_visual(image, mask):
     # Get the key with the most color matches
     max_key = max(color_dict, key=lambda k: color_dict[k][1])
 
-    # Return the group with the most matches
-    return max_key
+    # Separate group name. SCC1 to SCC...
+    max_key_group = max_key[:-1]
 
+    # Return if in cancer group or not in cancer group
+    if max_key_group in Cancer_groups:
+        return 'Cancer'
+    else:
+        return 'Non-Cancer'
+    
 
 # Read image examples
 img = cv2.imread('good_bad_images\ACK\good\images\PAT_26_37_865.png')
