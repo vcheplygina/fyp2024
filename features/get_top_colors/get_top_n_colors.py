@@ -2,6 +2,10 @@
 # This file will print top n colors
 ###
 
+### Can be changed: 
+# color_counts.most_common(2) - set how many most colors will be combined
+# 
+
 import os
 import cv2
 import numpy as np
@@ -59,7 +63,7 @@ def get_colors(images, masks, group_name):
             segment_color = np.mean(image[segment_mask], axis=0)
             all_colors.append(tuple(segment_color.astype(int)))
 
-    # Count all colors and select top 10
+    # Count all colors and select top n
     color_counts = Counter(all_colors)
     most_common_colors = color_counts.most_common(2)
 
@@ -69,7 +73,7 @@ def get_colors(images, masks, group_name):
     # Calculate relative frequency (to sum to 1)
     most_common_colors_relative = [(color, count / total_color_count) for color, count in most_common_colors]
 
-    # Print 2 colors
+    # Print colors
     print(most_common_colors_relative)
 
     # Plot and saving plot as png

@@ -9,6 +9,14 @@ import cv2
 # CHECKLIST
 # Re-calibrate colors: Waiting for David to re-do masks
 
+
+
+### Can be changed:
+# threshold_for_manhatten = 50. Diviation from defined color
+# n_segments=100. how many segments will be created from lession
+
+
+
 Cancer_groups = ['BCC', 'SCC', 'MEL']
 NonCancer_groups = ['SEK', 'ACK', 'NEV']
 
