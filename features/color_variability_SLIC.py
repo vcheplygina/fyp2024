@@ -6,13 +6,8 @@ from skimage.color import label2rgb
 from skimage.measure import regionprops
 import cv2
 
-
-### Checklist
-
-# Calibarate pre-defined colors
-# Do a return
-# Change comments/function's descriptions
-
+# CHECKLIST
+# Test for different images + different number of top colors
 
 
 def convert_to_rgb(image):
@@ -31,17 +26,25 @@ def preprocess_mask(mask):
     binary_mask = (grayscale_mask > 0).astype(np.uint8)
     return binary_mask
 
-
-def get_slic_visual(image, mask):
-    def manhatten(true_color, pixel_color):
+def manhatten(true_color, pixel_color):
         '''
         Function to calculate distance between color in color_dict and average color from current segment.
         Example: 'black':[(48, 51, 49),0]  vs [50,55,50], the distance is = 2+4+1= 7
         '''
         return np.sum(np.abs(true_color - pixel_color))
 
+def get_slic_visual(image, mask):
+    '''
+    This function will use slic alg. to segment the image where is masked. Then It will calculate
+    average color in each segment - superpixel. 
+    It will compare it to the colors in dictionary, that are pre-defined from all images and add count if match.
+
+    Input: Image and mask
+    Output: Group with the most color matches
+    '''
+
     # Set threshold for manhatten function. Default 100
-    threshold_for_manhatten = 100
+    threshold_for_manhatten = 50
 
     # Check if image is in RGBA. If true, convert it to RGB
     if image.shape[-1] == 4:
@@ -51,16 +54,27 @@ def get_slic_visual(image, mask):
     mask = preprocess_mask(mask)
 
     # Apply SLIC algorithm
-    segments_slic = slic(image, n_segments=100, compactness=10, sigma=1, start_label=1, mask=mask)
+    segments_slic = slic(image, n_segments=100, compactness=30, sigma=1, start_label=1, mask=mask)
 
-    # Dictionary with pre-defined colors + counter for each
+    # Dictionary with pre-defined colors (top1 from each group or top2)
     color_dict = {
-            'white':[(175, 172, 167),0],
-            'light-brown':[(143, 100, 76),0],
-            'dark-brown':[(82, 70, 67),0],
-            'blue-grey':[(59, 63, 75),0],
-            'red':[(146, 80, 86),0],
-            'black':[(48, 51, 49),0] 
+            'ACK1':[(115, 107, 112),0],
+            'ACK2':[(139, 109, 100),0],
+
+            'BCC1':[(153, 136, 130),0],
+            'BCC2':[(159, 149, 150),0],
+
+            'MEL1':[(186, 151, 138),0],
+            'MEL2':[(148, 104, 88),0],
+
+            'NEV1':[(173, 173, 171),0],
+            'NEV2':[(179, 167, 167),0],
+
+            'SCC1':[(156, 109, 121),0],
+            'SCC2':[(153, 101, 111),0],
+
+            'SEK1':[(173, 140, 113),0],
+            'SEK2':[(195, 170, 141),0] 
     }
 
     # Iterate through unique segments identified by the SLIC algorithm
@@ -84,11 +98,11 @@ def get_slic_visual(image, mask):
     # Print results
     for color_name, (color_value, count) in color_dict.items():
         print(f"Segments close to {color_name}: {count}")
-    
-    ### RETURN: ?
 
-    ### -----------------------------------------------------
-    # Visualizing the segments
+
+    
+    # Visualizing the segments - OPTIONAL
+    '''
     fig, ax = plt.subplots(1, 3, figsize=(15, 5))
     ax[0].imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
     ax[0].set_title('Original Image')
@@ -104,11 +118,18 @@ def get_slic_visual(image, mask):
     ax[2].axis('off')
 
     plt.show()
+    '''
+
+    # Get the key with the most color matches
+    max_key = max(color_dict, key=lambda k: color_dict[k][1])
+
+    # Return the group with the most matches
+    return max_key
 
 
+# Read image examples
 img = cv2.imread('good_bad_images\ACK\good\images\PAT_26_37_865.png')
 mask = cv2.imread('good_bad_images\ACK\good\masks\PAT_26_37_865_mask.png')
-
 
 print(get_slic_visual(img,mask))
 
