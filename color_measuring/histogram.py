@@ -1,49 +1,44 @@
 import numpy as np
 import cv2
+import matplotlib.pyplot as plt
 import os
 import json
 
 
-def calculate_histograms(img_ids: list[str], group: str):
-    histograms = {}  # Dictionary to store histograms per image
+def plot_histogram(image_id: str, mask=None):
+    # split the image into its respective channels, then initialize
+    # the tuple of channel names along with our figure for plotting
+    chans = cv2.split(image)
+    colors = ("b", "g", "r")
+    plt.figure()
+    plt.title(f"color histogram for image: {image_id}")
+    plt.xlabel("Bins")
+    plt.ylabel("# of Pixels")
 
-    for id in img_ids:
-        image = cv2.imread(f"Raw_images_masks/${group}/good/${id}.png")
+    # loop over the image channels
+    for chan, color in zip(chans, colors):
+        # create a histogram for the current channel and plot it
+        hist = cv2.calcHist([chan], [0], mask, [256], [0, 256])
+        plt.plot(hist, color=color)
+        plt.xlim([0, 256])
 
-        # Read the mask image
-        mask = cv2.imread(
-            f"Raw_images_masks/${group}/good/${id}_mask.png",
-            cv2.IMREAD_GRAYSCALE,
-        )
 
-        # Apply the mask to the original image
-        masked_image = cv2.bitwise_and(image, image, mask=mask)
-        # Perform segmentation, feature extraction, or other analysis on the masked image
-        # Example: You can use thresholding for segmentation
-        ret, thresholded_image = cv2.threshold(
-            masked_image, 127, 255, cv2.THRESH_BINARY
-        )
+image = cv2.imread("good_bad_images/ack/good/images/PAT_104_1755_320.png")
+plot_histogram(image, "Histogram for Original Image")
+cv2.imshow("Original", image)
+mask = cv2.imread(
+    "good_bad_images/ack/good/masks/PAT_104_1755_320_mask.png", cv2.IMREAD_GRAYSCALE
+)
 
-        if masked_image is None:
-            print(f"Error: Unable to read image '{filename}'")
-            continue
+masked = cv2.bitwise_and(image, image, mask=mask)
+cv2.imshow("Applying the Mask", masked)
 
-        # Convert image from BGR to RGB
-        image_rgb = cv2.cvtColor(masked_image, cv2.COLOR_BGR2RGB)
+# compute a histogram for our image, but we'll only include pixels in
+# the masked region
+plot_histogram(image, "Histogram for Masked Image", mask=mask)
 
-        # Calculate histograms for each color channel
-        histogram_r = cv2.calcHist([image_rgb], [0], None, [256], [0, 256])
-        histogram_g = cv2.calcHist([image_rgb], [1], None, [256], [0, 256])
-        histogram_b = cv2.calcHist([image_rgb], [2], None, [256], [0, 256])
-
-        # Store histograms in a dictionary
-        histograms[os.path.basename(filename)] = {
-            "histogram_r": histogram_r.flatten().tolist(),
-            "histogram_g": histogram_g.flatten().tolist(),
-            "histogram_b": histogram_b.flatten().tolist(),
-        }
-
-    return histograms
+# show our plots
+plt.show()
 
 
 def calculate_color_composition(histogram_data):
@@ -164,21 +159,21 @@ def load_histograms_from_json(filename):
 
 
 # List of image filenames
-image_filenames = ["toy.png", "zlodej.jpg"]
+# image_filenames = ["toy.png", "zlodej.jpg"]
 
-# Calculate histograms
-histograms = calculate_histograms(image_filenames)
+# # Calculate histograms
+# histograms = calculate_histograms(image_filenames)
 
-# Save histograms to a JSON file
-save_histograms_to_json(histograms, "histograms.json")
+# # Save histograms to a JSON file
+# save_histograms_to_json(histograms, "histograms.json")
 
-# Load histograms from the JSON file
-loaded_histograms = load_histograms_from_json("histograms.json")
+# # Load histograms from the JSON file
+# loaded_histograms = load_histograms_from_json("histograms.json")
 
-color_composition = calculate_color_composition(loaded_histograms)
-color_distribution = calculate_color_distribution(loaded_histograms)
-intensity_peaks = find_intensity_peaks(loaded_histograms)
-color_homogeneity = calculate_color_homogeneity(loaded_histograms)
+# color_composition = calculate_color_composition(loaded_histograms)
+# color_distribution = calculate_color_distribution(loaded_histograms)
+# intensity_peaks = find_intensity_peaks(loaded_histograms)
+# color_homogeneity = calculate_color_homogeneity(loaded_histograms)
 
-print(color_distribution)
-print(color_homogeneity)
+# print(color_distribution)
+# print(color_homogeneity)
