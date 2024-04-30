@@ -1,13 +1,19 @@
+import pandas as pd
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
-import os
 import json
 
 
-def plot_histogram(image_id: str, mask=None):
+def plot_histogram(image_id: str):
+    metadata = pd.read_csv("data/metadata.csv")
+    d = metadata.query(f"img_id=='{image_id}.png'")["diagnostic"].item()
     # split the image into its respective channels, then initialize
     # the tuple of channel names along with our figure for plotting
+    image = cv2.imread(f"good_bad_images/{d}/good/images/{image_id}.png")
+    mask = cv2.imread(
+        f"good_bad_images/{d}/good/masks/{image_id}_mask.png", cv2.IMREAD_GRAYSCALE
+    )
     chans = cv2.split(image)
     colors = ("b", "g", "r")
     plt.figure()
@@ -21,23 +27,16 @@ def plot_histogram(image_id: str, mask=None):
         hist = cv2.calcHist([chan], [0], mask, [256], [0, 256])
         plt.plot(hist, color=color)
         plt.xlim([0, 256])
+    plt.savefig(f"{image_id}")
 
 
-image = cv2.imread("good_bad_images/ack/good/images/PAT_104_1755_320.png")
-plot_histogram(image, "Histogram for Original Image")
-cv2.imshow("Original", image)
-mask = cv2.imread(
-    "good_bad_images/ack/good/masks/PAT_104_1755_320_mask.png", cv2.IMREAD_GRAYSCALE
-)
-
-masked = cv2.bitwise_and(image, image, mask=mask)
-cv2.imshow("Applying the Mask", masked)
+# masked = cv2.bitwise_and(image, image, mask=mask)
 
 # compute a histogram for our image, but we'll only include pixels in
 # the masked region
-plot_histogram(image, "Histogram for Masked Image", mask=mask)
+img_id = "PAT_26_37_865"
+plot_histogram(img_id)
 
-# show our plots
 plt.show()
 
 
