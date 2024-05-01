@@ -14,5 +14,3 @@ def compactness(mask_path):
     compactness = (4 * np.pi * area) / (perimeter ** 2)
     
     return compactness
-
-print(compactness('perfect_circle.jpg'))
