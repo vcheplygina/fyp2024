@@ -27,6 +27,8 @@ def plot_histogram(image_id: str):
     for chan, color in zip(chans, colors):
         # create a histogram for the current channel and plot it
         hist = cv2.calcHist([chan], [0], mask, [256], [0, 256])
+        plt.plot(hist, color=color)
+        plt.xlim([0, 256])
         hist = hist.ravel() / hist.sum()  # Normalize the histogram
 
         # Calculate mean, std, skewness, and kurtosis for each channel.
@@ -46,10 +48,15 @@ def plot_histogram(image_id: str):
             "kurtosis": kurt_val,
             "peak_val": peak_val,
         }
-        plt.plot(hist, color=color)
-        plt.xlim([0, 256])
+    output_stats = {}
+    for stat in ["mean", "std_dev", "skewness", "kurtosis", "peak_val"]:
+        output_stats[stat] = (
+            channel_stats["r"][stat],
+            channel_stats["g"][stat],
+            channel_stats["b"][stat],
+        )
 
-    return channel_stats
+    return output_stats
 
 
 img_id = "PAT_26_37_865"
