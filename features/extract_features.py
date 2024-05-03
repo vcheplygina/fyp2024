@@ -100,6 +100,7 @@ def blue_white_veil(image_path, mask_path):
     return result
 
 
+# TODO: Fix
 def compactness(mask_path):
     """assesses the compactness of the lesion - irregularity of edges"""
     contours, _ = cv2.findContours(

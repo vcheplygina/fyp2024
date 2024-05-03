@@ -6,12 +6,9 @@ from os.path import exists
 import pandas as pd
 import numpy as np
 from helpers.get_data import get_data
+from features.extract_features import asymmetry, blue_white_veil, compactness
 from features import (
     histogram_data,
-    asymmetry,
-    blue_white_veil,
-    compactness,
-    atypical_network,
 )
 
 # -------------------
@@ -36,7 +33,7 @@ label = np.array(df["diagnostic"])
 is_nevus = label == "NEV"
 
 num_images = len(image_id)
-
+# TODO: is slic done
 feature_names = [
     "asymmetry",
     "compactness",
@@ -70,13 +67,13 @@ for i, val in enumerate(get_data()):
             features[i]["rgb_standard_deviation"] = str(hist_data["std_dev"])
             features[i]["rgb_kurtosis"] = str(hist_data["kurtosis"])
             features[i]["rgb_peak_val"] = str(hist_data["peak_val"])
-        asymmetry_data = asymmetry.asymmetry(mask_path)
+        asymmetry_data = asymmetry(mask_path)
         if asymmetry_data:
             features[i]["asymmetry"] = asymmetry_data
-        bvw_data = blue_white_veil.blue_white_veil(img_path, mask_path)
+        bvw_data = blue_white_veil(img_path, mask_path)
         if bvw_data:
             features[i]["blue_white_veil"] = bvw_data
-        compactness_data = compactness.compactness(mask_path)
+        compactness_data = compactness(mask_path)
         if compactness_data:
             features[i]["compactness"] = compactness_data
 
