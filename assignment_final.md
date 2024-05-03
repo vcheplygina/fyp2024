@@ -73,7 +73,13 @@ You must hand in a report (PDF) and your Github repository.
   
 ### Github
 
-TBA: requirements for repository
+* Follow the template as much as possible, the README should contain instructions on what is needed to modify to run the code
+* Organized file structure and consistent formatting, see materials from 14 Feb lecture for more information
+* Contain everything needed to run the code:
+    - installation instruction/requirements
+    - all files needed to run the code EXCEPT the original images (we have them already), such as any CSV files needed, the saved classifier etc. 
+    - how to use your model on new images (outputting the **probabilities)**
+* The online repository needs to have the history of the group member contributions (i.e., do not start a new clean repository but clean the existing one with a new commit). In addition, you are allowed to attach this as a file to your submission using the git log command (https://git-scm.com/docs/git-log)  
 
 
 ## References
