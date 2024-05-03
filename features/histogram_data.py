@@ -5,7 +5,7 @@ import cv2
 import matplotlib.pyplot as plt
 
 
-def plot_histogram(image_id: str):
+def get_histogram_data(image_id: str):
     metadata = pd.read_csv("data/metadata.csv")
     d = metadata.query(f"img_id=='{image_id}.png'")["diagnostic"].item()
     image = cv2.imread(f"good_bad_images/{d}/good/images/{image_id}.png")
@@ -59,8 +59,4 @@ def plot_histogram(image_id: str):
     return output_stats
 
 
-img_id = "PAT_26_37_865"
-
-stats = plot_histogram(img_id)
-print(stats)
-plt.show()
+# plt.show()
