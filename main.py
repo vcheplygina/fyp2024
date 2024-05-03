@@ -33,17 +33,21 @@ label = np.array(df["diagnostic"])
 is_nevus = label == "NEV"
 
 num_images = len(image_id)
-# TODO: is slic done
+# TODO: is slic done?
 feature_names = [
     "asymmetry",
     "compactness",
     # "slic_cancer_true",
     # "slic_cancer_false",
-    "rgb_mean_value",
-    "rgb_standard_deviation",
-    "rgb_skewness",
-    "rgb_kurtosis",
-    "rgb_peak_val",
+    "mean_r",
+    "mean_g",
+    "mean_b",
+    "sd_r",
+    "sd_g",
+    "sd_b",
+    "peak_r",
+    "peak_g",
+    "peak_b",
     "blue_white_veil",
     # "network_structures",
 ]
@@ -61,12 +65,16 @@ for i, val in enumerate(get_data()):
     if exists(img_path) and exists(mask_path):
         hist_data = histogram_data.get_histogram_data(img_path, mask_path)
         if hist_data:
-            # Convert tuple to a string for CSV storage
-            features[i]["rgb_mean_value"] = str(hist_data["mean"])
-            features[i]["rgb_skewness"] = str(hist_data["skewness"])
-            features[i]["rgb_standard_deviation"] = str(hist_data["std_dev"])
-            features[i]["rgb_kurtosis"] = str(hist_data["kurtosis"])
-            features[i]["rgb_peak_val"] = str(hist_data["peak_val"])
+            features[i]["mean_r"] = hist_data["r"]["mean"]
+            features[i]["mean_g"] = hist_data["g"]["mean"]
+            features[i]["mean_b"] = hist_data["b"]["mean"]
+            features[i]["sd_r"] = hist_data["r"]["std_dev"]
+            features[i]["sd_g"] = hist_data["g"]["std_dev"]
+            features[i]["sd_b"] = hist_data["b"]["std_dev"]
+            features[i]["peak_r"] = hist_data["r"]["peak_val"]
+            features[i]["peak_g"] = hist_data["g"]["peak_val"]
+            features[i]["peak_b"] = hist_data["b"]["peak_val"]
+
         asymmetry_data = asymmetry(mask_path)
         if asymmetry_data:
             features[i]["asymmetry"] = asymmetry_data
