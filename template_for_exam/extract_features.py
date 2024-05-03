@@ -13,7 +13,6 @@ from skimage import morphology  # for measuring things in the masks
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-from features.histogram_data import get_histogram_data
 
 # -------------------
 # Help functions
@@ -22,7 +21,6 @@ from features.histogram_data import get_histogram_data
 
 # Main function to extract features from an image, that calls other functions
 def extract_features(image_path, mask_path):
-    h_data = get_histogram_data("id")
 
     asymmetry = asymmetry(mask_path)
     color_variability = color_variability()
