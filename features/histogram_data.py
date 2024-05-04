@@ -33,5 +33,5 @@ def get_histogram_data(img, mask):
             }
         return channel_stats
     except Exception as e:
-        print(e)
-        print(img)
+        print(f"err: histogram data, img: {img}")
+        return None

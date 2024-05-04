@@ -6,7 +6,12 @@ from os.path import exists
 import pandas as pd
 import numpy as np
 from helpers.get_data import get_data
-from features.extract_features import asymmetry, blue_white_veil, compactness
+from features.extract_features import (
+    asymmetry,
+    blue_white_veil,
+    compactness,
+    atypical_network,
+)
 from features import (
     histogram_data,
 )
@@ -35,6 +40,7 @@ is_nevus = label == "NEV"
 num_images = len(image_id)
 # TODO: is slic done?
 feature_names = [
+    "img_id",
     "asymmetry",
     "compactness",
     # "slic_cancer_true",
@@ -49,7 +55,7 @@ feature_names = [
     "peak_g",
     "peak_b",
     "blue_white_veil",
-    # "network_structures",
+    "network_structures",
 ]
 
 num_features = len(feature_names)
@@ -64,7 +70,13 @@ for i, val in enumerate(get_data()):
     # This ensures that we are not using image without a mask
     if exists(img_path) and exists(mask_path):
         hist_data = histogram_data.get_histogram_data(img_path, mask_path)
-        if hist_data:
+        asymmetry_data = asymmetry(mask_path)
+        bvw_data = blue_white_veil(img_path, mask_path)
+        compactness_data = compactness(mask_path)
+        features[i]["img_id"] = val["img"].split(".")[0]
+        network_data = atypical_network(img_path, mask_path)
+
+        if hist_data is not None:
             features[i]["mean_r"] = hist_data["r"]["mean"]
             features[i]["mean_g"] = hist_data["g"]["mean"]
             features[i]["mean_b"] = hist_data["b"]["mean"]
@@ -74,16 +86,14 @@ for i, val in enumerate(get_data()):
             features[i]["peak_r"] = hist_data["r"]["peak_val"]
             features[i]["peak_g"] = hist_data["g"]["peak_val"]
             features[i]["peak_b"] = hist_data["b"]["peak_val"]
-
-        asymmetry_data = asymmetry(mask_path)
-        if asymmetry_data:
+        if asymmetry_data is not None:
             features[i]["asymmetry"] = asymmetry_data
-        bvw_data = blue_white_veil(img_path, mask_path)
-        if bvw_data:
+        if bvw_data is not None:
             features[i]["blue_white_veil"] = bvw_data
-        compactness_data = compactness(mask_path)
-        if compactness_data:
+        if compactness_data is not None:
             features[i]["compactness"] = compactness_data
+        if network_data is not None:
+            features[i]["network_structures"] = network_data
 
 
 # Once all data is processed, save it to CSV
