@@ -1,4 +1,5 @@
 import os
+from os.path import exists
 
 
 def get_data():
@@ -9,5 +10,6 @@ def get_data():
         x = img.split(".")
         x.insert(1, "_mask.")
         mask = "".join(x)
-        data.append({"img": img, "mask": mask})
+        if exists(f"data/images/{img}") and exists(f"data/masks/{mask}"):
+            data.append({"img": img, "mask": mask})
     return data

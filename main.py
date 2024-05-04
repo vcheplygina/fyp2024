@@ -29,15 +29,8 @@ data = get_data()
 # Read meta-data into a Pandas dataframe
 df = pd.read_csv("data/metadata.csv")
 
-# Extract image IDs and labels from the data.
-image_id = list(df["img_id"])
-label = np.array(df["diagnostic"])
+num_images = len(data)
 
-# Here you could decide to filter the data in some way (see task 0)
-# For example you can have a file selected_images.csv which stores the IDs of the files you need
-is_nevus = label == "NEV"
-
-num_images = len(image_id)
 # TODO: is slic done?
 feature_names = [
     "img_id",
