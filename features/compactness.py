@@ -20,3 +20,4 @@ def compactness(mask_path):
         return compactness
     except Exception as e:
         print(e)
+        return None

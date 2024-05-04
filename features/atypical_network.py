@@ -17,7 +17,6 @@ def atypical_network(image_path, mask_path):
     edges = cv2.Canny(eq, 100, 200)  # detect edges to find network
     kernel = np.ones((3, 3), np.uint8)  # dilate edges to make the network more visible
     network = cv2.dilate(edges, kernel, iterations=1)
-
     if np.any(network > 0):
         return 1
     else:
