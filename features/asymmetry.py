@@ -1,13 +1,13 @@
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
+
 
 def asymmetry(mask_path):
     """compute the vertical and horizontal symmetry scores"""
     # 1) load the mask image
     image = cv2.imread(mask_path, cv2.IMREAD_GRAYSCALE)
     _, mask = cv2.threshold(image, 127, 255, cv2.THRESH_BINARY)
-    
+
     # 2) find the center of the lesion
     white_pixels = np.argwhere(mask > 0)
     center_row = np.mean(white_pixels[:, 0]).astype(int)
@@ -32,8 +32,9 @@ def asymmetry(mask_path):
     intersection = np.logical_and(mask, horiz_flipped)
     union = np.logical_or(mask, horiz_flipped)
     horizontal_symmetry_score = np.sum(intersection) / np.sum(union)
-    
+
     # 5) compute the combined symmetry score)
     total_score = round((vertical_symmetry_score + horizontal_symmetry_score) / 2, 4)
 
     return total_score
+
