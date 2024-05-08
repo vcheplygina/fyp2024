@@ -1,5 +1,11 @@
 import numpy as np
 import cv2
+import os
+
+parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+os.sys.path.insert(0, parentdir)
+
+from helpers.get_data import *
 
 
 def get_histogram_data(img, mask):
@@ -35,3 +41,6 @@ def get_histogram_data(img, mask):
     except Exception as e:
         print(f"err: histogram data, img: {img}")
         return None
+
+
+i = get_data()

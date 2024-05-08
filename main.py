@@ -48,7 +48,6 @@ feature_names = [
     "peak_g",
     "peak_b",
     "blue_white_veil",
-    "network_structures",
     "diagnosis",
     "patient_id",
 ]
@@ -74,8 +73,6 @@ for i, val in enumerate(get_data()):
         features[i]["diagnosis"] = diagnosis.iloc[0]["diagnostic"]
         features[i]["patient_id"] = diagnosis.iloc[0]["patient_id"]
 
-        network_data = atypical_network(img_path, mask_path)
-
         if hist_data is not None:
             features[i]["mean_r"] = hist_data["r"]["mean"]
             features[i]["mean_g"] = hist_data["g"]["mean"]
@@ -92,8 +89,7 @@ for i, val in enumerate(get_data()):
             features[i]["blue_white_veil"] = bvw_data
         if compactness_data is not None:
             features[i]["compactness"] = compactness_data
-        if network_data is not None:
-            features[i]["network_structures"] = network_data
+
 
 df = pd.DataFrame(features)
 cleaned_df = df.dropna(how="any")

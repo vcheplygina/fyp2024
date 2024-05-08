@@ -6,8 +6,6 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import GroupKFold
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from sklearn.linear_model import LogisticRegression
-
-
 import pickle  # for saving/loading trained classifiers
 
 
