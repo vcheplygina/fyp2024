@@ -49,6 +49,8 @@ feature_names = [
     "peak_b",
     "blue_white_veil",
     "network_structures",
+    "diagnosis",
+    "patient_id",
 ]
 
 num_features = len(feature_names)
@@ -66,7 +68,12 @@ for i, val in enumerate(get_data()):
         asymmetry_data = asymmetry(mask_path)
         bvw_data = blue_white_veil(img_path, mask_path)
         compactness_data = compactness(mask_path)
-        features[i]["img_id"] = val["img"].split(".")[0]
+        img_id = val["img"].split(".")[0]
+        features[i]["img_id"] = img_id
+        diagnosis = df.loc[df["img_id"] == f"{img_id}.png"]
+        features[i]["diagnosis"] = diagnosis.iloc[0]["diagnostic"]
+        features[i]["patient_id"] = diagnosis.iloc[0]["patient_id"]
+
         network_data = atypical_network(img_path, mask_path)
 
         if hist_data is not None:
@@ -88,6 +95,8 @@ for i, val in enumerate(get_data()):
         if network_data is not None:
             features[i]["network_structures"] = network_data
 
+df = pd.DataFrame(features)
+cleaned_df = df.dropna(how="any")
 
 # Once all data is processed, save it to CSV
-pd.DataFrame(features, columns=feature_names).to_csv(file_features, index=False)
+cleaned_df.to_csv("features/features.csv", index=False)
