@@ -1,11 +1,11 @@
-import os
 import pandas as pd
 import numpy as np
 
 # Default packages for the minimum example
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import GroupKFold
-from sklearn.metrics import accuracy_score  # example for measuring performance
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from sklearn.linear_model import LogisticRegression
 
 
 import pickle  # for saving/loading trained classifiers
@@ -36,11 +36,16 @@ group_kfold.get_n_splits(x, y, patient_id)
 
 
 # # Different classifiers to test out
-classifiers = [KNeighborsClassifier(1), KNeighborsClassifier(5)]
+classifiers = [KNeighborsClassifier(1), KNeighborsClassifier(5), LogisticRegression()]
 num_classifiers = len(classifiers)
 
 
+# Initialize storage for metric results
 acc_val = np.empty([num_folds, num_classifiers])
+prec_val = np.empty([num_folds, num_classifiers])
+rec_val = np.empty([num_folds, num_classifiers])
+f1_val = np.empty([num_folds, num_classifiers])
+
 
 for i, (train_index, val_index) in enumerate(group_kfold.split(x, y, patient_id)):
 
@@ -53,17 +58,26 @@ for i, (train_index, val_index) in enumerate(group_kfold.split(x, y, patient_id)
 
         # Train the classifier
         clf.fit(x_train, y_train)
+        y_pred = clf.predict(x_val)
 
-        # Evaluate your metric of choice (accuracy is probably not the best choice)
-        acc_val[i, j] = accuracy_score(y_val, clf.predict(x_val))
+        # Compute the metrics
+        acc_val[i, j] = accuracy_score(y_val, y_pred)
+        prec_val[i, j] = precision_score(y_val, y_pred, zero_division=0)
+        rec_val[i, j] = recall_score(y_val, y_pred, zero_division=0)
+        f1_val[i, j] = f1_score(y_val, y_pred, zero_division=0)
 
 
-# Average over all folds
-average_acc = np.mean(acc_val, axis=0)
+for j, clf_name in enumerate(["1-NN", "5-NN", "Logistic Regression"]):
+    average_acc = np.mean(acc_val[:, j])
+    average_prec = np.mean(prec_val[:, j])
+    average_rec = np.mean(rec_val[:, j])
+    average_f1 = np.mean(f1_val[:, j])
 
-print("Classifier 1 average accuracy={:.3f} ".format(average_acc[0]))
-print("Classifier 2 average accuracy={:.3f} ".format(average_acc[1]))
-
+    print(
+        "Classifier {}: \n- Average Accuracy: {:.3f} \n- Average Precision: {:.3f} \n- Average Recall: {:.3f} \n- Average F1 Score: {:.3f}\n".format(
+            clf_name, average_acc, average_prec, average_rec, average_f1
+        )
+    )
 
 # Let's say you now decided to use the 5-NN
 classifier = KNeighborsClassifier(n_neighbors=5)
