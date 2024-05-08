@@ -3,11 +3,15 @@ FYP project imaging
 """
 
 import os
+import sys
 from os.path import exists
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-from get_data import *
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from features.extract_features import asymmetry, blue_white_veil, compactness
+from features import histogram_data
+from helpers.get_data import get_data
 
 # -------------------
 # Main script
@@ -15,63 +19,76 @@ from get_data import *
 
 # Where we will store the features
 file_features = "features/features.csv"
-
+metadata_path = "data/metadata.csv"
+# Where all our images and masks are being stored
 data = get_data()
 
 
 # Read meta-data into a Pandas dataframe
-df = pd.read_csv("data/metadata.csv")
+df = pd.read_csv(metadata_path)
 
-# Extract image IDs and labels from the data.
-image_id = list(df["img_id"])
-label = np.array(df["diagnostic"])
+num_images = len(data)
 
-# Here you could decide to filter the data in some way (see task 0)
-# For example you can have a file selected_images.csv which stores the IDs of the files you need
-is_nevus = label == "NEV"
-
-num_images = len(image_id)
-
-
-# Make array to store features
+# Set features for extraction to features.csv
 feature_names = [
+    "img_id",
     "asymmetry",
-    "color variability",
-    "blue white veil",
     "compactness",
-    "atypical network",
+    "mean_r",
+    "mean_g",
+    "mean_b",
+    "sd_r",
+    "sd_g",
+    "sd_b",
+    "peak_r",
+    "peak_g",
+    "peak_b",
+    "blue_white_veil",
+    "diagnosis",
+    "patient_id",
 ]
+
 num_features = len(feature_names)
-features = np.zeros([num_images, num_features], dtype=np.float16)
+features = np.empty(
+    num_images, dtype=[(name, "object") for name in feature_names]
+)  # Using 'object' type for generic data
 
-# for i, val in enumerate(get_data()):
-# img_path = "./data/images/" + val["img"]
-# mask_path = "./data/masks/" + val["mask"]
+for i, val in enumerate(get_data()):
+    img_path = "data/images/" + val["img"]
+    mask_path = "data/masks/" + val["mask"]
 
-# if exists(img_path) and exists(mask_path):
-# print("Hello World")
-# pass
+    # This ensures that we are not using image without a mask
+    if exists(img_path) and exists(mask_path):
+        hist_data = histogram_data.get_histogram_data(img_path, mask_path)
+        asymmetry_data = asymmetry(mask_path)
+        bvw_data = blue_white_veil(img_path, mask_path)
+        compactness_data = compactness(mask_path)
+        img_id = val["img"].split(".")[0]
+        features[i]["img_id"] = img_id
+        diagnosis = df.loc[df["img_id"] == f"{img_id}.png"]
+        features[i]["diagnosis"] = diagnosis.iloc[0]["diagnostic"]
+        features[i]["patient_id"] = diagnosis.iloc[0]["patient_id"]
+
+        if hist_data is not None:
+            features[i]["mean_r"] = hist_data["r"]["mean"]
+            features[i]["mean_g"] = hist_data["g"]["mean"]
+            features[i]["mean_b"] = hist_data["b"]["mean"]
+            features[i]["sd_r"] = hist_data["r"]["std_dev"]
+            features[i]["sd_g"] = hist_data["g"]["std_dev"]
+            features[i]["sd_b"] = hist_data["b"]["std_dev"]
+            features[i]["peak_r"] = hist_data["r"]["peak_val"]
+            features[i]["peak_g"] = hist_data["g"]["peak_val"]
+            features[i]["peak_b"] = hist_data["b"]["peak_val"]
+        if asymmetry_data is not None:
+            features[i]["asymmetry"] = asymmetry_data
+        if bvw_data is not None:
+            features[i]["blue_white_veil"] = bvw_data
+        if compactness_data is not None:
+            features[i]["compactness"] = compactness_data
 
 
-# # Loop through all images (now just 10 for demonstration)
-# for i in np.arange(10):
+df = pd.DataFrame(features)
+cleaned_df = df.dropna(how="any")
 
-# # Define filenames related to this image
-# file_image = path_image + os.sep + image_id[i]
-
-# if exists(file_image):
-
-# # Read the image
-# im = plt.imread(file_image)
-# im = np.float16(im)
-
-# # Measure features - this does not do anything useful yet!
-# x = extract_features(im)
-
-# # Store in the variable we created before
-# features[i, :] = x
-
-
-# # Save the image_id used + features to a file
-# df_features = pd.DataFrame(features, columns=feature_names)
-# df_features.to_csv(file_features, index=False)
+# Once all data is processed, save it to CSV
+cleaned_df.to_csv("features/features.csv", index=False)

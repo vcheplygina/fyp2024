@@ -1,9 +1,9 @@
 import numpy as np
 import cv2
 import os
+import sys
 
-parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-os.sys.path.insert(0, parentdir)
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from helpers.get_data import *
 
