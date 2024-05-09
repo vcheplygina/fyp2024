@@ -11,7 +11,20 @@ import pickle  # for saving/loading trained classifiers
 
 # Where did we store the features?
 file_features = "features/features.csv"
-feature_names = ["asymmetry", "compactness", "mean_r", "mean_g", "mean_b"]
+feature_names = [
+    "asymmetry",
+    "compactness",
+    "mean_r",
+    "mean_g",
+    "mean_b",
+    "sd_r",
+    "sd_g",
+    "sd_b",
+    "peak_r",
+    "peak_g",
+    "peak_b",
+    "blue_white_veil",
+]
 
 # Load the features
 df = pd.read_csv(file_features)
@@ -34,7 +47,11 @@ group_kfold.get_n_splits(x, y, patient_id)
 
 
 # # Different classifiers to test out
-classifiers = [KNeighborsClassifier(1), KNeighborsClassifier(5), LogisticRegression()]
+classifiers = [
+    KNeighborsClassifier(1),
+    KNeighborsClassifier(5),
+    LogisticRegression(solver="sag", max_iter=9000),
+]
 num_classifiers = len(classifiers)
 
 
