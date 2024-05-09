@@ -7,10 +7,14 @@ from sklearn.model_selection import GroupKFold
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from sklearn.linear_model import LogisticRegression
 import pickle  # for saving/loading trained classifiers
+import os
+import sys
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 # Where did we store the features?
-file_features = "features/features.csv"
+file_features = "template_for_exam/features/features.csv"
 feature_names = [
     "asymmetry",
     "compactness",

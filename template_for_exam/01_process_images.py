@@ -18,7 +18,6 @@ from helpers.get_data import get_data
 # -------------------
 
 # Where we will store the features
-file_features = "features/features.csv"
 metadata_path = "data/metadata.csv"
 # Where all our images and masks are being stored
 data = get_data()
@@ -91,4 +90,4 @@ df = pd.DataFrame(features)
 cleaned_df = df.dropna(how="any")
 
 # Once all data is processed, save it to CSV
-cleaned_df.to_csv("features/features.csv", index=False)
+cleaned_df.to_csv("template_for_exam/features/features.csv", index=False)
