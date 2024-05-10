@@ -11,7 +11,7 @@ import numpy as np
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from template.extract_features import *
+from template.extract_features_train import *
 from helpers.get_data import get_data
 
 # -------------------
@@ -44,10 +44,28 @@ feature_names = [
     "peak_r",
     "peak_g",
     "peak_b",
+    "patient_id",
+    "diagnostic",
+]
+dtype = [
+    ("asymmetry", np.float16),
+    ("compactness", np.float16),
+    ("blue_white_veil", np.float16),
+    ("sd_r", np.float16),
+    ("sd_g", np.float16),
+    ("sd_b", np.float16),
+    ("mean_r", np.float16),
+    ("mean_g", np.float16),
+    ("mean_b", np.float16),
+    ("peak_r", np.float16),
+    ("peak_g", np.float16),
+    ("peak_b", np.float16),
+    ("patient_id", "<U50"),  # String type with max length 50
+    ("diagnostic", "<U50"),  # String type with max length 50
 ]
 
-num_features = len(feature_names)
-features = np.zeros([num_images, num_features], dtype=np.float16)
+num_features = len(dtype)
+features = np.zeros(num_images, dtype=dtype)
 
 for i, val in enumerate(get_data()):
     img_path = "data/images/" + val["img"]
@@ -55,11 +73,19 @@ for i, val in enumerate(get_data()):
 
     # This ensures that we are not using image without a mask
     if exists(img_path) and exists(mask_path):
-        x = extract_features(image=img_path, mask=mask_path)
-        features[i, :] = x
+        x = extract_features_train(image_path=img_path, mask=mask_path)
+        if len(x) == len(dtype):
+            # Assign each element of x to the corresponding field in features
+            for j, field in enumerate(dtype):
+                features[i][field[0]] = x[j]
+            # Assign patient_id and diagnostic
+            features[i]["patient_id"] = x[-2]
+            features[i]["diagnostic"] = x[-1]
+        else:
+            print(f"Skipping image {val['img']} due to mismatch in feature dimensions.")
 
-df = pd.DataFrame(features)
+df = pd.DataFrame(features, columns=[val[0] for val in dtype])
 cleaned_df = df.dropna(how="any")
 
 # Once all data is processed, save it to CSV
-cleaned_df.to_csv("template_for_exam/features/features_n.csv", index=False)
+cleaned_df.to_csv("template/features/features_training.csv", index=False)

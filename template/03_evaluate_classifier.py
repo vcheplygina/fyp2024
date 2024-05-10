@@ -4,7 +4,7 @@ import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from extract_features import extract_features  # our feature extraction
+from template.extract_features import *  # our feature extraction
 
 
 # The function that should classify new images.
@@ -29,4 +29,3 @@ def classify(img, mask):
 
 
 # The TAs will call the function above in a loop, for external test images/masks
-

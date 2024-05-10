@@ -14,7 +14,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 # Where did we store the features?
-file_features = "template_for_exam/features/features.csv"
+file_features = "template/features/features_training.csv"
 feature_names = [
     "asymmetry",
     "compactness",
@@ -36,7 +36,7 @@ df = pd.read_csv(file_features)
 
 # Make the dataset, you can select different classes (see task 0)
 x = np.array(df[feature_names])
-label = np.array(df["diagnosis"])
+label = np.array(df["diagnostic"])
 
 # Categorize as cancer or non-cancer
 cancer_types = ["MEL", "SCC", "BCC"]  # Cancerous diagnoses
