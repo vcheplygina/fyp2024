@@ -98,8 +98,7 @@ for j, clf_name in enumerate(["1-NN", "5-NN", "Logistic Regression"]):
         )
     )
 
-# Let's say you now decided to use the 5-NN
-classifier = KNeighborsClassifier(n_neighbors=5)
+classifier = LogisticRegression(solver="sag", max_iter=9000)
 
 # It will be tested on external data, so we can try to maximize the use of our available data by training on
 # ALL of x and y

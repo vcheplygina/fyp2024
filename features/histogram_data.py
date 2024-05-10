@@ -8,9 +8,13 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from helpers.get_data import *
 
 
-def get_histogram_data(img, mask):
-    image = cv2.imread(img)
-    mask = cv2.imread(mask, cv2.IMREAD_GRAYSCALE)
+def get_histogram_data(img_path: str, mask_path: str):
+    """
+    color = ("r", "g", "b")
+    returns { [color]: { "mean": float, "std_dev": float, "peak_val": float } }
+    """
+    image = cv2.imread(img_path)
+    mask = cv2.imread(mask_path, cv2.IMREAD_GRAYSCALE)
     # split the image into its respective channels, then initialize
     # the tuple of channel names along with our figure for plotting
     try:
@@ -39,8 +43,4 @@ def get_histogram_data(img, mask):
             }
         return channel_stats
     except Exception as e:
-        print(f"err: histogram data, img: {img}")
-        return None
-
-
-i = get_data()
+        print(f"err: histogram data, img: {image}")
