@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 
-def blue_white_veil(image_path, mask_path):
+def get_blue_white_veil(image_path: str, mask_path: str):
     """calculate the coverage ratio of blue-white veil areas"""
     # 1) load the image and its mask
     image = cv2.imread(image_path)
@@ -30,5 +30,4 @@ def blue_white_veil(image_path, mask_path):
         result = 1 if coverage_ratio > 0 else 0  # if blue-white veil detected, return 1
         return result
     except Exception as e:
-        print(e)
-
+        print(f"err: blue white veil, image: {image_path}")

@@ -2,7 +2,8 @@ import cv2
 import numpy as np
 
 
-def compactness(mask_path):
+def get_compactness(mask_path: str):
+    """assesses the compactness of the lesion - irregularity of edges"""
     try:
         """assesses the compactness of the lesion - irregularity of edges"""
         mask = cv2.imread(mask_path, cv2.IMREAD_GRAYSCALE)  # load mask
@@ -20,4 +21,3 @@ def compactness(mask_path):
         return compactness
     except Exception as e:
         print(e)
-        return None
